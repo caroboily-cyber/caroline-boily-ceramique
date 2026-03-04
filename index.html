@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Caroline Boily — Céramique artisanale tournée à la main à Montréal. Pièces uniques pour votre quotidien.">
+  <title>Caroline Boily — Céramique Artisanale · Montréal</title>
+
+  <!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  PERSONNALISATION — À COMPLÉTER                              ║
+  ║                                                              ║
+  ║  1. Photos : créez un dossier images/ et ajoutez-les        ║
+  ║     Voir les commentaires <!-- PHOTO --> dans le HTML        ║
+  ║  2. Courriel : bonjour@carolineboily.com → votre adresse    ║
+  ║  3. Liens Instagram dans le footer                           ║
+  ║  4. Boutons Acheter : remplacez href="#STRIPE" par vos      ║
+  ║     vrais liens Stripe Payment Links                         ║
+  ║  5. Noms, descriptions et prix des produits                  ║
+  ╚══════════════════════════════════════════════════════════════╝
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===================================================
+       RESET & BASE
+    =================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --snow:        #FAFAF8;
+      --snow-mid:    #F4F2EF;
+      --snow-dark:   #E8E5E0;
+      --slate:       #6B8B9E;
+      --slate-dk:    #4F7088;
+      --teal:        #7A9E9B;
+      --warm-gray:   #7A7A85;
+      --dark:        #1E2028;
+      --text:        #38383F;
+      --text-lt:     #78787F;
+      --border:      #D8D5CF;
+
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'Jost', system-ui, sans-serif;
+      --max:    1180px;
+      --rad:    2px;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { overflow-x: hidden; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--snow);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.75;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ===================================================
+       BANDEAU PROMO
+    =================================================== */
+    .announce-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+      height: 24px; display: flex; align-items: center; justify-content: center;
+      background: var(--dark); color: rgba(255,255,255,.75);
+      font-size: .68rem; font-weight: 400; letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    /* ===================================================
+       NAVIGATION
+    =================================================== */
+    .nav {
+      position: fixed; top: 24px; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 70px;
+      background: rgba(250,250,248,0.96);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .nav.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 1px 24px rgba(30,32,40,.06);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.25rem; font-weight: 400; letter-spacing: .02em;
+      color: var(--dark);
+    }
+    .nav-logo em { font-style: normal; color: var(--slate); }
+
+    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+    .nav-links a {
+      font-size: .8rem; font-weight: 400;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text); padding-bottom: 2px; position: relative;
+      transition: color .2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 1px; background: var(--slate);
+      transition: width .3s ease;
+    }
+    .nav-links a:hover { color: var(--slate); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Hamburger */
+    .nav-burger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-burger span {
+      display: block; width: 22px; height: 1px;
+      background: var(--dark); transition: all .3s ease;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-drawer {
+      display: none; position: fixed; top: 94px; left: 0; right: 0; z-index: 99;
+      flex-direction: column; gap: 28px; padding: 32px 48px;
+      background: var(--snow); border-bottom: 1px solid var(--border);
+    }
+
+    /* ===================================================
+       HERO
+    =================================================== */
+    .hero {
+      min-height: 100svh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 100px;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(155deg, #c8d4de 0%, #8aaabb 40%, #4a7a8a 100%);
+    }
+    .hero-photo {
+      position: absolute; inset: 0; z-index: 1;
+      background: url('images/hero.jpg') center/cover no-repeat;
+    }
+    .hero-veil {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to bottom,
+        rgba(20,28,35,.38) 0%,
+        rgba(20,28,35,.14) 50%,
+        rgba(20,28,35,.50) 100%);
+    }
+
+    .hero-body {
+      position: relative; z-index: 3;
+      max-width: 680px; margin: 0 auto;
+    }
+    .eyebrow {
+      font-size: .72rem; font-weight: 400; letter-spacing: .24em;
+      text-transform: uppercase; color: rgba(255,255,255,.8);
+      margin-bottom: 24px; display: block;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7.5vw, 5.5rem);
+      font-weight: 300; line-height: 1.08;
+      color: #fff; letter-spacing: .01em; margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: italic; }
+    .hero-tagline {
+      font-size: 1rem; font-weight: 300; letter-spacing: .04em;
+      color: rgba(255,255,255,.82); max-width: 400px;
+      margin: 0 auto 48px;
+    }
+
+    .btn-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block; padding: 13px 30px;
+      font-family: var(--sans); font-size: .78rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      border-radius: var(--rad); cursor: pointer;
+      transition: all .24s ease;
+    }
+    .btn-solid {
+      background: var(--slate); color: #fff;
+      border: 1px solid var(--slate);
+    }
+    .btn-solid:hover { background: var(--slate-dk); border-color: var(--slate-dk); }
+    .btn-ghost {
+      background: transparent; color: #fff;
+      border: 1px solid rgba(255,255,255,.65);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.1); border-color: #fff; }
+
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%); z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.55); font-size: .67rem; letter-spacing: .18em; text-transform: uppercase;
+    }
+    .hero-scroll-bar {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.55), transparent);
+      animation: pulse-bar 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse-bar {
+      0%,100% { opacity: .55; transform: scaleY(1); }
+      50%      { opacity: .25; transform: scaleY(.55); }
+    }
+
+    /* ===================================================
+       SHARED SECTION STYLES
+    =================================================== */
+    section { padding: 104px 24px; }
+
+    .wrap { max-width: var(--max); margin: 0 auto; }
+
+    .label {
+      display: block; font-size: .7rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--slate); margin-bottom: 14px;
+    }
+    .title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300; line-height: 1.18; color: var(--dark);
+    }
+    .title em { font-style: italic; }
+
+    /* Fade-in animation */
+    .fi {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fi.vis { opacity: 1; transform: none; }
+
+    /* ===================================================
+       COLLECTIONS
+    =================================================== */
+    #collections { background: var(--snow-mid); }
+
+    .coll-head {
+      text-align: center; max-width: 520px;
+      margin: 0 auto 64px;
+    }
+    .coll-head .title { margin: 0 0 14px; }
+    .coll-head p { font-size: .93rem; color: var(--text-lt); line-height: 1.8; }
+
+    .coll-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 28px;
+    }
+
+    .coll-card { display: flex; flex-direction: column; }
+
+    .coll-img {
+      overflow: hidden; aspect-ratio: 3/4;
+      margin-bottom: 22px; border-radius: 1px;
+    }
+    .coll-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .65s ease;
+    }
+    .coll-ph {
+      width: 100%; height: 100%;
+      transition: transform .65s ease;
+    }
+    .ph-a { background: linear-gradient(150deg, #eef3f7 0%, #9ab8c8 50%, #4f7088 100%); }
+    .ph-b { background: linear-gradient(150deg, #eaf2ec 0%, #7aaa88 50%, #3a6848 100%); }
+    .ph-c { background: linear-gradient(150deg, #f0ece8 0%, #b09888 50%, #7a6050 100%); }
+
+    .coll-card:hover .coll-ph,
+    .coll-card:hover .coll-img img { transform: scale(1.04); }
+
+    .coll-tag {
+      font-size: .68rem; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--slate); margin-bottom: 7px;
+    }
+    .coll-name {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+      color: var(--dark); margin-bottom: 10px;
+    }
+    .coll-desc {
+      font-size: .88rem; font-weight: 300; color: var(--text-lt);
+      line-height: 1.72; margin-bottom: 14px; flex: 1;
+    }
+    .coll-more {
+      font-size: .75rem; font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--slate);
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: gap .2s;
+    }
+    .coll-more::after { content: '→'; }
+    .coll-card:hover .coll-more { gap: 10px; }
+
+    /* ===================================================
+       BOUTIQUE
+    =================================================== */
+    #boutique { background: var(--snow); }
+
+    .shop-head {
+      text-align: center; max-width: 520px;
+      margin: 0 auto 20px;
+    }
+    .shop-head .title { margin: 0 0 14px; }
+    .shop-head p { font-size: .93rem; color: var(--text-lt); line-height: 1.8; }
+
+    .ship-bar {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      max-width: 520px; margin: 0 auto 64px;
+      padding: 14px 24px;
+      background: var(--snow-mid);
+      border: 1px solid var(--border);
+      border-radius: var(--rad);
+      font-size: .84rem; color: var(--text);
+    }
+    .ship-bar svg { flex-shrink: 0; color: var(--slate); }
+    .ship-bar strong { font-weight: 500; }
+
+    .shop-filters {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; margin-bottom: 52px;
+    }
+    .shop-filter {
+      font-family: var(--sans); font-size: .75rem; font-weight: 400;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: 9px 22px; cursor: pointer;
+      background: transparent; color: var(--text-lt);
+      border: 1px solid var(--border); border-radius: var(--rad);
+      transition: all .22s ease;
+    }
+    .shop-filter:hover { color: var(--slate); border-color: var(--slate); }
+    .shop-filter.active {
+      background: var(--slate); color: #fff; border-color: var(--slate);
+    }
+
+    .prod-img { position: relative; }
+    .badge-lot {
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      font-family: var(--sans); font-size: .65rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      background: var(--dark); color: #fff;
+      padding: 4px 9px; border-radius: var(--rad);
+    }
+
+    .prod-card.is-hidden { display: none; }
+
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px 24px;
+    }
+
+    .prod-card { display: flex; flex-direction: column; }
+
+    .prod-img {
+      aspect-ratio: 1/1; overflow: hidden;
+      background: var(--snow-dark); margin-bottom: 18px;
+    }
+    .prod-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .prod-ph {
+      width: 100%; height: 100%; display: block;
+      transition: transform .5s ease;
+    }
+    .prod-card:hover .prod-ph,
+    .prod-card:hover .prod-img img { transform: scale(1.05); }
+
+    .prod-name {
+      font-family: var(--serif); font-size: 1.12rem; font-weight: 400;
+      color: var(--dark); margin-bottom: 6px; line-height: 1.3;
+    }
+    .prod-desc {
+      font-size: .84rem; font-weight: 300; color: var(--text-lt);
+      line-height: 1.65; margin-bottom: 16px; flex: 1;
+    }
+    .prod-foot {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .prod-price {
+      font-family: var(--serif); font-size: 1.22rem; color: var(--dark);
+    }
+    .btn-buy {
+      display: inline-block; padding: 10px 20px;
+      background: var(--slate); color: #fff;
+      font-family: var(--sans); font-size: .75rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      border-radius: var(--rad); border: 1px solid var(--slate);
+      transition: all .24s ease; white-space: nowrap; cursor: pointer;
+    }
+    .btn-buy:hover { background: var(--slate-dk); border-color: var(--slate-dk); }
+
+    /* ===================================================
+       FOOTER
+    =================================================== */
+    footer { background: var(--dark); color: rgba(255,255,255,.65); padding: 64px 24px 40px; }
+
+    .foot-grid {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 48px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 40px;
+    }
+
+    .foot-brand .nav-logo { color: #fff; display: block; margin-bottom: 16px; font-size: 1.15rem; }
+    .foot-brand p { font-size: .86rem; line-height: 1.82; max-width: 270px; }
+
+    .foot-col h4 {
+      font-size: .68rem; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: #fff; margin-bottom: 20px;
+    }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .foot-col ul a {
+      font-size: .86rem; color: rgba(255,255,255,.55); transition: color .2s;
+    }
+    .foot-col ul a:hover { color: var(--teal); }
+
+    .foot-bottom {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: .78rem; color: rgba(255,255,255,.3);
+    }
+
+    /* ===================================================
+       RESPONSIVE
+    =================================================== */
+    @media (max-width: 1024px) {
+      .prod-grid { grid-template-columns: repeat(2,1fr); }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+      .foot-brand { grid-column: 1/-1; }
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .nav-drawer { padding: 28px 24px; }
+
+      section { padding: 72px 20px; }
+
+      .coll-grid { grid-template-columns: 1fr; gap: 44px; }
+      .coll-img { aspect-ratio: 4/3; }
+
+      .prod-grid { grid-template-columns: repeat(2,1fr); gap: 24px 16px; }
+
+      .foot-grid { grid-template-columns: 1fr; gap: 32px; }
+      .foot-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.8rem; }
+      .btn-row { flex-direction: column; align-items: center; }
+      .prod-grid { grid-template-columns: 1fr; }
+      .prod-foot { flex-direction: column; align-items: flex-start; }
+      .btn-buy { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =====================================================
+     NAVIGATION
+====================================================== -->
+<div class="announce-bar">Livraison 12,50&nbsp;$ &nbsp;·&nbsp; Gratuite dès 125&nbsp;$</div>
+
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">Caroline Boily <em>·</em> Céramique</a>
+
+  <ul class="nav-links">
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#boutique">Boutique</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+  </ul>
+
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer" id="drawer">
+  <a href="#collections" onclick="closeDrawer()">Collections</a>
+  <a href="#boutique"    onclick="closeDrawer()">Boutique</a>
+  <a href="apropos.html">À propos</a>
+</div>
+
+
+<!-- =====================================================
+     HÉRO
+====================================================== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <!-- PHOTO : créez images/hero.jpg pour remplacer le dégradé -->
+  <div class="hero-photo"></div>
+  <div class="hero-veil"></div>
+
+  <div class="hero-body fi">
+    <span class="eyebrow">Céramique en grès tournées à la main · Montréal</span>
+    <div class="btn-row">
+      <a href="#collections" class="btn btn-solid">Découvrir les collections</a>
+      <a href="#boutique"    class="btn btn-ghost">Visiter la boutique</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-bar"></div>
+    Défiler
+  </div>
+</section>
+
+
+<!-- =====================================================
+     COLLECTIONS
+====================================================== -->
+<section id="collections">
+  <div class="wrap">
+
+    <div class="coll-head fi">
+      <span class="label">Mes collections - La nature comme inspiration</span>
+    </div>
+
+    <div class="coll-grid">
+
+      <div class="coll-card fi">
+        <div class="coll-img">
+          <!-- PHOTO : images/coll-blizzard.jpg -->
+          <div class="coll-ph ph-a"></div>
+        </div>
+        <span class="coll-tag">01 — Blizzard</span>
+        <h3 class="coll-name">Blizzard</h3>
+        <p class="coll-desc">Blanc cassé moucheté et bande bleu ardoise. Tasses, assiettes creuses et bols — la collection du quotidien, sobre et lumineuse.</p>
+        <a href="#boutique" class="coll-more">Voir la collection</a>
+      </div>
+
+      <div class="coll-card fi">
+        <div class="coll-img">
+          <!-- PHOTO : images/coll-forestiere.jpg -->
+          <div class="coll-ph ph-b"></div>
+        </div>
+        <span class="coll-tag">02 — Forestière</span>
+        <h3 class="coll-name">Forestière</h3>
+        <p class="coll-desc">Glaçure vert forêt profond sur grès moucheté blanc. Tasses et assiettes pour ceux qui aiment la nature à table.</p>
+        <a href="#boutique" class="coll-more">Voir la collection</a>
+      </div>
+
+      <div class="coll-card fi">
+        <div class="coll-img">
+          <!-- PHOTO : images/coll-montagnarde.jpg -->
+          <div class="coll-ph ph-c"></div>
+        </div>
+        <span class="coll-tag">03 — Montagnarde</span>
+        <h3 class="coll-name">Montagnarde</h3>
+        <p class="coll-desc">Tons chauds terracotta et pierre. Bols profonds et poubelle de table — des pièces robustes aux textures marquées.</p>
+        <a href="#boutique" class="coll-more">Voir la collection</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================
+     BOUTIQUE
+====================================================== -->
+<section id="boutique">
+  <div class="wrap">
+
+    <div class="shop-head fi">
+      <span class="label">Boutique en ligne</span>
+      <h2 class="title">Chaque pièce,<br><em>unique</em></h2>
+      <p>Les quantités sont limitées. Les légères variations de forme, de glaçure et de texture font partie du caractère de chaque objet.</p>
+    </div>
+
+    <!-- Bandeau livraison -->
+    <div class="ship-bar fi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="3" width="15" height="13" rx="1"/>
+        <path d="M16 8h4l3 3v5h-7V8z"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/>
+        <circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+      <span>Livraison <strong>12,50&nbsp;$</strong> &nbsp;·&nbsp; Gratuite pour toute commande de <strong>125&nbsp;$</strong> et plus</span>
+    </div>
+
+    <!-- Filtres -->
+    <div class="shop-filters fi">
+      <button class="shop-filter active" data-filter="tout">Tout</button>
+      <button class="shop-filter" data-filter="tasses">Tasses</button>
+      <button class="shop-filter" data-filter="assiettes">Assiettes</button>
+      <button class="shop-filter" data-filter="bols">Bols</button>
+      <button class="shop-filter" data-filter="autre">Autre</button>
+    </div>
+
+    <!-- Grille produits -->
+    <div class="prod-grid" id="prod-grid">
+
+      <!-- TASSES -->
+      <div class="prod-card fi" data-cat="tasses">
+        <div class="prod-img">
+          <!-- PHOTO : images/blizzard-tasse-12oz.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eef3f7 30%,#6b8b9e 100%);"></div>
+        </div>
+        <h4 class="prod-name">Blizzard · Tasse 12 oz</h4>
+        <p class="prod-desc">Grès moucheté tourné, bande bleu ardoise sur fond blanc cassé. Contenance 355&nbsp;ml. Tampon CB au fond.</p>
+        <div class="prod-foot">
+          <span class="prod-price">33,50&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+      <div class="prod-card fi" data-cat="tasses">
+        <div class="prod-img">
+          <!-- PHOTO : images/forestiere-tasse-10oz.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eaf2ec 30%,#5a8a68 100%);"></div>
+        </div>
+        <h4 class="prod-name">Forestière · Tasse 10 oz</h4>
+        <p class="prod-desc">Grès moucheté, glaçure vert forêt en bandeau. Format café parfait, chaleur et caractère pour le matin. Contenance 295&nbsp;ml.</p>
+        <div class="prod-foot">
+          <span class="prod-price">29,50&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+      <div class="prod-card fi" data-cat="tasses">
+        <div class="prod-img">
+          <!-- PHOTO : images/grande-tasse-16oz.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eeeceb 30%,#9a9490 100%);"></div>
+          <span class="badge-lot">Fin de lot</span>
+        </div>
+        <h4 class="prod-name">Grande tasse 16 oz</h4>
+        <p class="prod-desc">Grande contenance pour le thé ou le café latte. Dernières pièces — légères variations de forme entre chaque exemplaire.</p>
+        <div class="prod-foot">
+          <span class="prod-price">25,00&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+      <!-- ASSIETTES -->
+      <div class="prod-card fi" data-cat="assiettes">
+        <div class="prod-img">
+          <!-- PHOTO : images/blizzard-assiette-creuse.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eef3f7 30%,#7a9eb0 100%);"></div>
+        </div>
+        <h4 class="prod-name">Blizzard · Assiette creuse</h4>
+        <p class="prod-desc">Assiette à rebord généreux, glaçure bleu ardoise sur fond blanc moucheté. Pour les soupes, les pâtes ou les salades.</p>
+        <div class="prod-foot">
+          <span class="prod-price">42,50&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+      <div class="prod-card fi" data-cat="assiettes">
+        <div class="prod-img">
+          <!-- PHOTO : images/forestiere-assiette.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eaf2ec 30%,#4a7858 100%);"></div>
+        </div>
+        <h4 class="prod-name">Forestière · Assiette</h4>
+        <p class="prod-desc">Assiette plate en grès moucheté, glaçure vert forêt. Belle présence à table, s'associe parfaitement avec les tasses Forestière.</p>
+        <div class="prod-foot">
+          <span class="prod-price">42,50&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+      <!-- BOLS -->
+      <div class="prod-card fi" data-cat="bols">
+        <div class="prod-img">
+          <!-- PHOTO : images/blizzard-bol.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eef3f7 30%,#5a8298 100%);"></div>
+        </div>
+        <h4 class="prod-name">Blizzard · Bol</h4>
+        <p class="prod-desc">Grès moucheté, intérieur blanc cassé, bande ardoise à l'extérieur. Pour les céréales, le ramen ou la salade. Vendu à l'unité.</p>
+        <div class="prod-foot">
+          <span class="prod-price">38,50&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+      <div class="prod-card fi" data-cat="bols">
+        <div class="prod-img">
+          <!-- PHOTO : images/montagnarde-bol.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eeeceb 30%,#7a6a60 100%);"></div>
+        </div>
+        <h4 class="prod-name">Montagnarde · Bol</h4>
+        <p class="prod-desc">Bol profond aux tons chauds terracotta et pierre. Texture prononcée, idéal pour les plats réconfortants en hiver.</p>
+        <div class="prod-foot">
+          <span class="prod-price">38,50&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+      <!-- AUTRE -->
+      <div class="prod-card fi" data-cat="autre">
+        <div class="prod-img">
+          <!-- PHOTO : images/montagnarde-poubelle-table.jpg -->
+          <div class="prod-ph" style="background:linear-gradient(135deg,#eeeceb 30%,#907868 100%);"></div>
+        </div>
+        <h4 class="prod-name">Montagnarde · Poubelle de table</h4>
+        <p class="prod-desc">Petit contenant cylindrique pour le compostage de table ou les os — pratique et élégant. Grès moucheté, tons chauds.</p>
+        <div class="prod-foot">
+          <span class="prod-price">68,50&nbsp;$</span>
+          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+        </div>
+      </div>
+
+    </div><!-- /prod-grid -->
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+<footer>
+  <div class="foot-grid">
+
+    <div class="foot-brand">
+      <a href="#" class="nav-logo">Caroline Boily <em style="color:var(--teal)">·</em> Céramique</a>
+      <p>Pièces en grès moucheté façonnées à la main à Montréal. Chaque objet porte le tampon CB — trace d'un geste fait avec soin.</p>
+    </div>
+
+    <div class="foot-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#boutique">Boutique</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:bonjour@carolineboily.com">bonjour@carolineboily.com</a></li>
+        <li><a href="https://instagram.com/" target="_blank">Instagram</a></li>
+        <li><a href="mailto:bonjour@carolineboily.com">Commandes sur mesure</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2025 Caroline Boily — Céramique. Montréal, Québec.</span>
+    <span>Livraison 12,50&nbsp;$ · Gratuit dès 125&nbsp;$</span>
+  </div>
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('vis'), 80 * (i % 4));
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
+
+  document.querySelectorAll('.fi').forEach(el => {
+    if (el.getBoundingClientRect().bottom < 0) el.classList.add('vis');
+    else io.observe(el);
+  });
+
+  document.querySelector('.hero .fi')?.classList.add('vis');
+
+  document.querySelectorAll('.shop-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.shop-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('#prod-grid .prod-card').forEach(card => {
+        card.classList.toggle('is-hidden', f !== 'tout' && card.dataset.cat !== f);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
