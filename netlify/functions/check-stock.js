@@ -3,7 +3,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // Payment Link IDs pour vérifier le stock restant
 const PAYMENT_LINKS = {
   'Blizzard · Tasse 12 oz':          'plink_1T7OX5Py5tPWAdRZNELezt1y',
-  'Forestière · Tasse 10 oz':        'plink_1T7OViPy5tPWAdRZVGC4fAMT',
+  'Forestière · Tasse 10 oz':        'plink_1T7OIbPy5tPWAdRZgpGdFkgo',
   'Grande tasse 16 oz':              'plink_1T7OT2Py5tPWAdRZTpw0PMsL',
   'Blizzard · Assiette creuse':      'plink_1T7OXzPy5tPWAdRZWIrCVETO',
   'Forestière · Assiette':           'plink_1T7OWcPy5tPWAdRZgeNnJnvH',
