@@ -12,7 +12,7 @@
   ║                                                              ║
   ║  1. Photos : créez un dossier images/ et ajoutez-les        ║
   ║     Voir les commentaires <!-- PHOTO --> dans le HTML        ║
-  ║  2. Courriel : bonjour@carolineboily.com → votre adresse    ║
+  ║  2. Courriel : poterie@cboily.ca → votre adresse    ║
   ║  3. Liens Instagram dans le footer                           ║
   ║  4. Boutons Acheter : remplacez href="#STRIPE" par vos      ║
   ║     vrais liens Stripe Payment Links                         ║
@@ -22,7 +22,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Nunito:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     /* ===================================================
@@ -94,8 +94,9 @@
     }
 
     .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.25rem; font-weight: 400; letter-spacing: .02em;
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Jost', system-ui, sans-serif;
+      font-size: 1.2rem; font-weight: 300; letter-spacing: .02em;
       color: var(--dark);
     }
     .nav-logo em { font-style: normal; color: var(--slate); }
@@ -138,8 +139,8 @@
        HERO
     =================================================== */
     .hero {
-      min-height: 100svh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 120px 24px 100px;
+      min-height: 60svh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
       position: relative; overflow: hidden;
     }
 
@@ -164,7 +165,7 @@
       max-width: 680px; margin: 0 auto;
     }
     .eyebrow {
-      font-size: .72rem; font-weight: 400; letter-spacing: .24em;
+      font-size: 1.1rem; font-weight: 400; letter-spacing: .24em;
       text-transform: uppercase; color: rgba(255,255,255,.8);
       margin-bottom: 24px; display: block;
     }
@@ -225,7 +226,7 @@
     .wrap { max-width: var(--max); margin: 0 auto; }
 
     .label {
-      display: block; font-size: .7rem; font-weight: 500;
+      display: block; font-size: 1rem; font-weight: 500;
       letter-spacing: .22em; text-transform: uppercase;
       color: var(--slate); margin-bottom: 14px;
     }
@@ -262,7 +263,7 @@
     .coll-card { display: flex; flex-direction: column; }
 
     .coll-img {
-      overflow: hidden; aspect-ratio: 3/4;
+      overflow: hidden; aspect-ratio: 1848/2661;
       margin-bottom: 22px; border-radius: 1px;
     }
     .coll-img img {
@@ -360,7 +361,7 @@
     .prod-card { display: flex; flex-direction: column; }
 
     .prod-img {
-      aspect-ratio: 1/1; overflow: hidden;
+      aspect-ratio: 1848/2661; overflow: hidden;
       background: var(--snow-dark); margin-bottom: 18px;
     }
     .prod-img img {
@@ -382,6 +383,10 @@
       font-size: .84rem; font-weight: 300; color: var(--text-lt);
       line-height: 1.65; margin-bottom: 16px; flex: 1;
     }
+    .prod-stock {
+      font-size: .78rem; font-weight: 400; margin-bottom: 8px;
+    }
+
     .prod-foot {
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
@@ -411,7 +416,7 @@
       margin-bottom: 40px;
     }
 
-    .foot-brand .nav-logo { color: #fff; display: block; margin-bottom: 16px; font-size: 1.15rem; }
+    .foot-brand .nav-logo { display:flex; align-items:center; gap:10px; color: #fff; margin-bottom: 16px; }
     .foot-brand p { font-size: .86rem; line-height: 1.82; max-width: 270px; }
 
     .foot-col h4 {
@@ -463,6 +468,100 @@
       .prod-foot { flex-direction: column; align-items: flex-start; }
       .btn-buy { width: 100%; text-align: center; }
     }
+
+    /* ===================================================
+       PANIER
+    =================================================== */
+    .cart-btn {
+      position: relative; background: none; border: none; cursor: pointer;
+      padding: 4px; color: var(--dark);
+    }
+    .cart-count {
+      position: absolute; top: -4px; right: -6px;
+      background: var(--slate); color: #fff;
+      font-size: .6rem; font-weight: 600;
+      width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .2s;
+    }
+    .cart-count.visible { opacity: 1; }
+
+    .cart-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.4);
+    }
+    .cart-overlay.open { display: block; }
+
+    .cart-drawer {
+      position: fixed; top: 0; right: -420px; width: 420px; max-width: 100vw;
+      height: 100vh; z-index: 201;
+      background: var(--snow); padding: 32px 28px;
+      display: flex; flex-direction: column; gap: 20px;
+      transition: right .35s ease;
+      box-shadow: -4px 0 32px rgba(0,0,0,.1);
+    }
+    .cart-drawer.open { right: 0; }
+
+    .cart-header {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cart-header h3 {
+      font-family: var(--serif); font-size: 1.4rem; font-weight: 300; color: var(--dark);
+    }
+    .cart-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 1.4rem; color: var(--text-lt); line-height: 1;
+    }
+
+    .cart-items { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+
+    .cart-item {
+      display: flex; align-items: center; gap: 14px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .cart-item-name { flex: 1; font-size: .9rem; color: var(--dark); }
+    .cart-item-price { font-size: .88rem; color: var(--text-lt); margin-top: 3px; }
+
+    .cart-qty {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cart-qty button {
+      width: 24px; height: 24px; border: 1px solid var(--border);
+      background: none; cursor: pointer; font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--dark); border-radius: var(--rad);
+    }
+    .cart-qty span { font-size: .9rem; min-width: 16px; text-align: center; }
+
+    .cart-remove {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-lt); font-size: .8rem; padding: 2px;
+    }
+    .cart-remove:hover { color: var(--dark); }
+
+    .cart-empty {
+      text-align: center; color: var(--text-lt);
+      font-size: .9rem; padding: 40px 0;
+    }
+
+    .cart-footer { border-top: 1px solid var(--border); padding-top: 20px; }
+    .cart-shipping {
+      display: flex; justify-content: space-between;
+      font-size: .84rem; color: var(--text-lt); margin-bottom: 10px;
+    }
+    .cart-total {
+      display: flex; justify-content: space-between;
+      font-size: 1rem; font-weight: 500; color: var(--dark); margin-bottom: 20px;
+    }
+    .btn-checkout {
+      width: 100%; padding: 14px; background: var(--slate); color: #fff;
+      border: none; cursor: pointer;
+      font-family: var(--sans); font-size: .8rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      border-radius: var(--rad); transition: background .2s;
+    }
+    .btn-checkout:hover { background: var(--slate-dk); }
+    .btn-checkout:disabled { opacity: .6; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -470,26 +569,53 @@
 <!-- =====================================================
      NAVIGATION
 ====================================================== -->
-<div class="announce-bar">Livraison 12,50&nbsp;$ &nbsp;·&nbsp; Gratuite dès 125&nbsp;$</div>
+<div class="announce-bar">Livraison 15&nbsp;$ au Québec et au Canada</div>
 
 <nav class="nav" id="nav">
-  <a href="#" class="nav-logo">Caroline Boily <em>·</em> Céramique</a>
+  <a href="#" class="nav-logo"><img src="images/Logo.png" alt="Logo" style="height:48px;width:auto;">Caroline Boily <em>·</em> Poterie artisanale</a>
 
   <ul class="nav-links">
     <li><a href="#collections">Collections</a></li>
     <li><a href="#boutique">Boutique</a></li>
-    <li><a href="apropos.html">À propos</a></li>
+    
   </ul>
 
-  <button class="nav-burger" id="burger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <button class="cart-btn" id="cart-btn" aria-label="Panier">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <div class="nav-drawer" id="drawer">
   <a href="#collections" onclick="closeDrawer()">Collections</a>
   <a href="#boutique"    onclick="closeDrawer()">Boutique</a>
   <a href="apropos.html">À propos</a>
+</div>
+
+<!-- PANIER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3>Mon panier</h3>
+    <button class="cart-close" id="cart-close">&times;</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p class="cart-empty">Votre panier est vide.</p>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-shipping"><span>Livraison</span><span>15,00&nbsp;$</span></div>
+    <div class="cart-total"><span>Total</span><span id="cart-total">0,00&nbsp;$</span></div>
+    <button class="btn-checkout" id="btn-checkout">Passer au paiement</button>
+  </div>
 </div>
 
 
@@ -503,17 +629,13 @@
   <div class="hero-veil"></div>
 
   <div class="hero-body fi">
-    <span class="eyebrow">Céramique en grès tournées à la main · Montréal</span>
+    <span class="eyebrow">Poterie en grès tournée à la main · Montréal</span>
     <div class="btn-row">
       <a href="#collections" class="btn btn-solid">Découvrir les collections</a>
       <a href="#boutique"    class="btn btn-ghost">Visiter la boutique</a>
     </div>
   </div>
 
-  <div class="hero-scroll">
-    <div class="hero-scroll-bar"></div>
-    Défiler
-  </div>
 </section>
 
 
@@ -524,45 +646,42 @@
   <div class="wrap">
 
     <div class="coll-head fi">
-      <span class="label">Mes collections - La nature comme inspiration</span>
+      <span class="label">Mes collections</span>
+      <p class="coll-desc" style="margin-top:8px;">Façonnées à la main, inspirées par la nature</p>
     </div>
 
     <div class="coll-grid">
 
       <div class="coll-card fi">
         <div class="coll-img">
-          <!-- PHOTO : images/coll-blizzard.jpg -->
-          <div class="coll-ph ph-a"></div>
+          <img src="images/Blizzard-tasse-2.jpg" alt="Collection Blizzard">
         </div>
         <span class="coll-tag">01 — Blizzard</span>
         <h3 class="coll-name">Blizzard</h3>
-        <p class="coll-desc">Blanc cassé moucheté et bande bleu ardoise. Tasses, assiettes creuses et bols — la collection du quotidien, sobre et lumineuse.</p>
-        <a href="#boutique" class="coll-more">Voir la collection</a>
       </div>
 
       <div class="coll-card fi">
         <div class="coll-img">
-          <!-- PHOTO : images/coll-forestiere.jpg -->
-          <div class="coll-ph ph-b"></div>
+          <img src="images/Montagnarde_Poubelle-de-table1.jpg" alt="Collection Montagnarde">
         </div>
-        <span class="coll-tag">02 — Forestière</span>
-        <h3 class="coll-name">Forestière</h3>
-        <p class="coll-desc">Glaçure vert forêt profond sur grès moucheté blanc. Tasses et assiettes pour ceux qui aiment la nature à table.</p>
-        <a href="#boutique" class="coll-more">Voir la collection</a>
-      </div>
-
-      <div class="coll-card fi">
-        <div class="coll-img">
-          <!-- PHOTO : images/coll-montagnarde.jpg -->
-          <div class="coll-ph ph-c"></div>
-        </div>
-        <span class="coll-tag">03 — Montagnarde</span>
+        <span class="coll-tag">02 — Montagnarde</span>
         <h3 class="coll-name">Montagnarde</h3>
-        <p class="coll-desc">Tons chauds terracotta et pierre. Bols profonds et poubelle de table — des pièces robustes aux textures marquées.</p>
-        <a href="#boutique" class="coll-more">Voir la collection</a>
+      </div>
+
+      <div class="coll-card fi">
+        <div class="coll-img">
+          <img src="images/Forestiere-tasse1a.jpg" alt="Collection Forestière" style="object-position: center bottom;">
+        </div>
+        <span class="coll-tag">03 — Forestière</span>
+        <h3 class="coll-name">Forestière</h3>
       </div>
 
     </div>
+
+    <div style="text-align:center; margin-top:48px;">
+      <a href="#boutique" class="btn btn-solid">Acheter</a>
+    </div>
+
   </div>
 </section>
 
@@ -575,7 +694,6 @@
 
     <div class="shop-head fi">
       <span class="label">Boutique en ligne</span>
-      <h2 class="title">Chaque pièce,<br><em>unique</em></h2>
       <p>Les quantités sont limitées. Les légères variations de forme, de glaçure et de texture font partie du caractère de chaque objet.</p>
     </div>
 
@@ -588,7 +706,7 @@
         <circle cx="5.5" cy="18.5" r="2.5"/>
         <circle cx="18.5" cy="18.5" r="2.5"/>
       </svg>
-      <span>Livraison <strong>12,50&nbsp;$</strong> &nbsp;·&nbsp; Gratuite pour toute commande de <strong>125&nbsp;$</strong> et plus</span>
+      <span>Livraison <strong>15&nbsp;$</strong> au Québec et au Canada</span>
     </div>
 
     <!-- Filtres -->
@@ -606,114 +724,111 @@
       <!-- TASSES -->
       <div class="prod-card fi" data-cat="tasses">
         <div class="prod-img">
-          <!-- PHOTO : images/blizzard-tasse-12oz.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eef3f7 30%,#6b8b9e 100%);"></div>
+          <img src="images/Blizzard-tasse-cafe1a.jpg" alt="Blizzard · Tasse 12 oz">
         </div>
         <h4 class="prod-name">Blizzard · Tasse 12 oz</h4>
-        <p class="prod-desc">Grès moucheté tourné, bande bleu ardoise sur fond blanc cassé. Contenance 355&nbsp;ml. Tampon CB au fond.</p>
         <div class="prod-foot">
           <span class="prod-price">33,50&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Blizzard · Tasse 12 oz', 33.50)">+ Panier</button>
         </div>
       </div>
 
       <div class="prod-card fi" data-cat="tasses">
         <div class="prod-img">
-          <!-- PHOTO : images/forestiere-tasse-10oz.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eaf2ec 30%,#5a8a68 100%);"></div>
+          <img src="images/Forestiere-tasse1a.jpg" alt="Forestière · Tasse 10 oz">
         </div>
         <h4 class="prod-name">Forestière · Tasse 10 oz</h4>
-        <p class="prod-desc">Grès moucheté, glaçure vert forêt en bandeau. Format café parfait, chaleur et caractère pour le matin. Contenance 295&nbsp;ml.</p>
         <div class="prod-foot">
           <span class="prod-price">29,50&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Forestière · Tasse 10 oz', 29.50)">+ Panier</button>
         </div>
       </div>
 
       <div class="prod-card fi" data-cat="tasses">
         <div class="prod-img">
-          <!-- PHOTO : images/grande-tasse-16oz.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eeeceb 30%,#9a9490 100%);"></div>
+          <img src="images/Fin-de-lot_grande-tasse2.jpg" alt="Grande tasse 16 oz">
           <span class="badge-lot">Fin de lot</span>
         </div>
         <h4 class="prod-name">Grande tasse 16 oz</h4>
-        <p class="prod-desc">Grande contenance pour le thé ou le café latte. Dernières pièces — légères variations de forme entre chaque exemplaire.</p>
         <div class="prod-foot">
           <span class="prod-price">25,00&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Grande tasse 16 oz', 25.00)">+ Panier</button>
         </div>
       </div>
 
       <!-- ASSIETTES -->
       <div class="prod-card fi" data-cat="assiettes">
         <div class="prod-img">
-          <!-- PHOTO : images/blizzard-assiette-creuse.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eef3f7 30%,#7a9eb0 100%);"></div>
+          <img src="images/blizzard_assiette-creuse3.jpg" alt="Blizzard · Assiette creuse">
         </div>
         <h4 class="prod-name">Blizzard · Assiette creuse</h4>
-        <p class="prod-desc">Assiette à rebord généreux, glaçure bleu ardoise sur fond blanc moucheté. Pour les soupes, les pâtes ou les salades.</p>
         <div class="prod-foot">
           <span class="prod-price">42,50&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Blizzard · Assiette creuse', 42.50)">+ Panier</button>
         </div>
       </div>
 
       <div class="prod-card fi" data-cat="assiettes">
         <div class="prod-img">
-          <!-- PHOTO : images/forestiere-assiette.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eaf2ec 30%,#4a7858 100%);"></div>
+          <img src="images/Forestiere_Assiettes-2a.jpg" alt="Forestière · Assiette">
         </div>
         <h4 class="prod-name">Forestière · Assiette</h4>
-        <p class="prod-desc">Assiette plate en grès moucheté, glaçure vert forêt. Belle présence à table, s'associe parfaitement avec les tasses Forestière.</p>
         <div class="prod-foot">
           <span class="prod-price">42,50&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Forestière · Assiette', 42.50)">+ Panier</button>
         </div>
       </div>
 
       <!-- BOLS -->
       <div class="prod-card fi" data-cat="bols">
         <div class="prod-img">
-          <!-- PHOTO : images/blizzard-bol.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eef3f7 30%,#5a8298 100%);"></div>
+          <img src="images/Blizzard-bols-2b.jpg" alt="Blizzard · Bol">
         </div>
         <h4 class="prod-name">Blizzard · Bol</h4>
-        <p class="prod-desc">Grès moucheté, intérieur blanc cassé, bande ardoise à l'extérieur. Pour les céréales, le ramen ou la salade. Vendu à l'unité.</p>
         <div class="prod-foot">
           <span class="prod-price">38,50&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Blizzard · Bol', 38.50)">+ Panier</button>
         </div>
       </div>
 
       <div class="prod-card fi" data-cat="bols">
         <div class="prod-img">
-          <!-- PHOTO : images/montagnarde-bol.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eeeceb 30%,#7a6a60 100%);"></div>
+          <img src="images/Montagnarde_bol-2.jpg" alt="Montagnarde · Bol">
         </div>
         <h4 class="prod-name">Montagnarde · Bol</h4>
-        <p class="prod-desc">Bol profond aux tons chauds terracotta et pierre. Texture prononcée, idéal pour les plats réconfortants en hiver.</p>
         <div class="prod-foot">
           <span class="prod-price">38,50&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Montagnarde · Bol', 38.50)">+ Panier</button>
         </div>
       </div>
 
       <!-- AUTRE -->
       <div class="prod-card fi" data-cat="autre">
         <div class="prod-img">
-          <!-- PHOTO : images/montagnarde-poubelle-table.jpg -->
-          <div class="prod-ph" style="background:linear-gradient(135deg,#eeeceb 30%,#907868 100%);"></div>
+          <img src="images/Montagnarde_Poubelle-de-table1.jpg" alt="Montagnarde · Poubelle de table">
         </div>
         <h4 class="prod-name">Montagnarde · Poubelle de table</h4>
-        <p class="prod-desc">Petit contenant cylindrique pour le compostage de table ou les os — pratique et élégant. Grès moucheté, tons chauds.</p>
         <div class="prod-foot">
           <span class="prod-price">68,50&nbsp;$</span>
-          <a href="#STRIPE" class="btn-buy" target="_blank">Acheter</a>
+          <button class="btn-buy" onclick="addToCart('Montagnarde · Poubelle de table', 68.50)">+ Panier</button>
         </div>
       </div>
 
     </div><!-- /prod-grid -->
 
+  </div>
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+====================================================== -->
+<section id="contact" style="background:var(--snow-mid); text-align:center; padding: 80px 24px;">
+  <div class="wrap">
+    <span class="label fi">Contact</span>
+    <h2 class="title fi" style="margin-bottom:16px;">Une question ? <em>Écrivez-moi.</em></h2>
+    <p class="fi" style="font-size:.95rem; color:var(--text-lt); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;">Pour toute question sur les produits, une commande multiple ou la livraison combinée, je vous réponds rapidement.</p>
+    <a href="mailto:poterie@cboily.ca" class="btn btn-solid fi">poterie@cboily.ca</a>
   </div>
 </section>
 
@@ -725,8 +840,8 @@
   <div class="foot-grid">
 
     <div class="foot-brand">
-      <a href="#" class="nav-logo">Caroline Boily <em style="color:var(--teal)">·</em> Céramique</a>
-      <p>Pièces en grès moucheté façonnées à la main à Montréal. Chaque objet porte le tampon CB — trace d'un geste fait avec soin.</p>
+      <a href="#" class="nav-logo"><img src="images/Logo.png" alt="Logo" style="height:48px;width:auto;">Caroline Boily <em>·</em> Poterie artisanale</a>
+      <p>Poterie en grès tournée à la main · Montréal</p>
     </div>
 
     <div class="foot-col">
@@ -734,24 +849,24 @@
       <ul>
         <li><a href="#collections">Collections</a></li>
         <li><a href="#boutique">Boutique</a></li>
-        <li><a href="apropos.html">À propos</a></li>
+        
       </ul>
     </div>
 
     <div class="foot-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:bonjour@carolineboily.com">bonjour@carolineboily.com</a></li>
-        <li><a href="https://instagram.com/" target="_blank">Instagram</a></li>
-        <li><a href="mailto:bonjour@carolineboily.com">Commandes sur mesure</a></li>
+        <li><a href="mailto:poterie@cboily.ca">poterie@cboily.ca</a></li>
+
+        <li style="font-size:.84rem; color:rgba(255,255,255,.55); line-height:1.7;">Vous souhaitez commander plusieurs pièces ? Écrivez-moi pour une commande sur mesure avec livraison combinée.</li>
       </ul>
     </div>
 
   </div>
 
   <div class="foot-bottom">
-    <span>© 2025 Caroline Boily — Céramique. Montréal, Québec.</span>
-    <span>Livraison 12,50&nbsp;$ · Gratuit dès 125&nbsp;$</span>
+    <span>© 2026 Caroline Boily — Céramique. Montréal, Québec.</span>
+    <span>Livraison 15&nbsp;$ au Québec et au Canada</span>
   </div>
 </footer>
 
@@ -807,6 +922,164 @@
         card.classList.toggle('is-hidden', f !== 'tout' && card.dataset.cat !== f);
       });
     });
+  });
+</script>
+
+<script>
+  // ===================================================
+  // STOCK
+  // ===================================================
+  async function checkStock() {
+    try {
+      const res = await fetch('/.netlify/functions/check-stock');
+      const stock = await res.json();
+      document.querySelectorAll('.prod-card').forEach(card => {
+        const name = card.querySelector('.prod-name')?.textContent.trim();
+        const btn  = card.querySelector('.btn-buy');
+        if (!btn || !(name in stock)) return;
+        const qty = stock[name];
+        // Affiche le stock
+        let stockEl = card.querySelector('.prod-stock');
+        if (!stockEl) {
+          stockEl = document.createElement('p');
+          stockEl.className = 'prod-stock';
+          card.querySelector('.prod-foot').before(stockEl);
+        }
+
+        if (qty === 0) {
+          btn.textContent = 'Épuisé';
+          btn.disabled = true;
+          btn.style.opacity = '.45';
+          btn.style.cursor  = 'not-allowed';
+          btn.onclick = null;
+          stockEl.textContent = 'Épuisé';
+          stockEl.style.color = 'var(--text-lt)';
+        } else if (qty === 1) {
+          const isFinDeLot = card.querySelector('.badge-lot') !== null;
+          stockEl.textContent = isFinDeLot ? 'Dernière pièce !' : 'Actuellement en production';
+          stockEl.style.color = '#c0622a';
+        } else if (qty <= 3) {
+          stockEl.textContent = `Plus que ${qty} en stock`;
+          stockEl.style.color = '#c0622a';
+        } else if (qty !== null) {
+          stockEl.textContent = `${qty} en stock`;
+          stockEl.style.color = 'var(--text-lt)';
+        }
+      });
+    } catch (e) {
+      // silencieux — les boutons restent actifs si l'API échoue
+    }
+  }
+  checkStock();
+
+  // ===================================================
+  // PANIER
+  // ===================================================
+  let cart = [];
+
+  const cartBtn     = document.getElementById('cart-btn');
+  const cartOverlay = document.getElementById('cart-overlay');
+  const cartDrawer  = document.getElementById('cart-drawer');
+  const cartClose   = document.getElementById('cart-close');
+  const cartCount   = document.getElementById('cart-count');
+  const cartItems   = document.getElementById('cart-items');
+  const cartFooter  = document.getElementById('cart-footer');
+  const cartTotal   = document.getElementById('cart-total');
+  const btnCheckout = document.getElementById('btn-checkout');
+
+  function openCart() {
+    cartDrawer.classList.add('open');
+    cartOverlay.classList.add('open');
+  }
+  function closeCart() {
+    cartDrawer.classList.remove('open');
+    cartOverlay.classList.remove('open');
+  }
+
+  cartBtn.addEventListener('click', openCart);
+  cartClose.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+
+  function addToCart(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ name, price, quantity: 1 });
+    }
+    renderCart();
+    openCart();
+  }
+
+  function renderCart() {
+    const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    const count = cart.reduce((sum, i) => sum + i.quantity, 0);
+
+    cartCount.textContent = count;
+    cartCount.classList.toggle('visible', count > 0);
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<p class="cart-empty">Votre panier est vide.</p>';
+      cartFooter.style.display = 'none';
+      return;
+    }
+
+    cartFooter.style.display = 'block';
+    cartTotal.textContent = (total + 15).toFixed(2).replace('.', ',') + '\u00a0$';
+
+    cartItems.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <div style="flex:1;">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${item.price.toFixed(2).replace('.', ',')} $</div>
+        </div>
+        <div class="cart-qty">
+          <button onclick="changeQty(${idx}, -1)">−</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQty(${idx}, 1)">+</button>
+        </div>
+        <button class="cart-remove" onclick="removeItem(${idx})">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function changeQty(idx, delta) {
+    cart[idx].quantity += delta;
+    if (cart[idx].quantity <= 0) cart.splice(idx, 1);
+    renderCart();
+  }
+
+  function removeItem(idx) {
+    cart.splice(idx, 1);
+    renderCart();
+  }
+
+  btnCheckout.addEventListener('click', async () => {
+    btnCheckout.disabled = true;
+    btnCheckout.textContent = 'Redirection…';
+    try {
+      const res = await fetch('/.netlify/functions/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: cart,
+          successUrl: window.location.origin + '/?commande=merci',
+          cancelUrl: window.location.href,
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Erreur lors de la création du paiement.');
+        btnCheckout.disabled = false;
+        btnCheckout.textContent = 'Passer au paiement';
+      }
+    } catch (e) {
+      alert('Erreur réseau. Veuillez réessayer.');
+      btnCheckout.disabled = false;
+      btnCheckout.textContent = 'Passer au paiement';
+    }
   });
 </script>
 

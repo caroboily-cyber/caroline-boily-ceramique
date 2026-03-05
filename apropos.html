@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Nunito:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -57,7 +57,8 @@
       border-bottom: 1px solid var(--border);
       box-shadow: 0 1px 24px rgba(30,32,40,.06);
     }
-    .nav-logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+    .nav-logo { display: flex; align-items: center; gap: 10px;
+                font-family: 'Jost', system-ui, sans-serif; font-size: 1.1rem; font-weight: 300;
                 letter-spacing: .02em; color: var(--dark); }
     .nav-logo em { font-style: normal; color: var(--slate); }
     .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
@@ -143,10 +144,10 @@
 </head>
 <body>
 
-<div class="announce-bar">Livraison 12,50&nbsp;$ &nbsp;·&nbsp; Gratuite dès 125&nbsp;$</div>
+<div class="announce-bar">Livraison 15&nbsp;$ au Québec et au Canada</div>
 
 <nav class="nav" id="nav">
-  <a href="index.html" class="nav-logo">Caroline Boily <em>·</em> Céramique</a>
+  <a href="index.html" class="nav-logo"><img src="images/Logo.png" alt="Logo" style="height:48px;width:auto;">Caroline Boily <em>·</em> Poterie artisanale</a>
   <ul class="nav-links">
     <li><a href="index.html#collections">Collections</a></li>
     <li><a href="index.html#boutique">Boutique</a></li>
@@ -194,13 +195,13 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
               </svg>
-              <a href="mailto:bonjour@carolineboily.com">bonjour@carolineboily.com</a>
+              <a href="mailto:poterie@cboily.ca">poterie@cboily.ca</a>
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
               </svg>
-              <a href="https://instagram.com/" target="_blank">@carolineboily.ceramique</a>
+              <a href="https://instagram.com/carolineboily.ceramique" target="_blank">@carolineboily.ceramique</a>
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -218,8 +219,8 @@
 
 <footer>
   <div class="foot-bottom">
-    <span>© 2025 Caroline Boily — Céramique. Montréal, Québec.</span>
-    <span>Livraison 12,50&nbsp;$ · Gratuit dès 125&nbsp;$</span>
+    <span>© 2026 Caroline Boily — Céramique. Montréal, Québec.</span>
+    <span>Livraison 15&nbsp;$ au Québec et au Canada</span>
   </div>
 </footer>
 
