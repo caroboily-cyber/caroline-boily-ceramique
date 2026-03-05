@@ -710,19 +710,29 @@
     </div>
 
     <!-- Filtres -->
-    <div class="shop-filters fi">
-      <button class="shop-filter active" data-filter="tout">Tout</button>
-      <button class="shop-filter" data-filter="tasses">Tasses</button>
-      <button class="shop-filter" data-filter="assiettes">Assiettes</button>
-      <button class="shop-filter" data-filter="bols">Bols</button>
-      <button class="shop-filter" data-filter="autre">Autre</button>
+    <div class="shop-filters fi" style="flex-direction:column; align-items:center; gap:12px;">
+      <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;">
+        <span style="font-size:.68rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--text-lt); margin-right:4px;">Type</span>
+        <button class="shop-filter active" data-filter="tout" data-type="cat">Tout</button>
+        <button class="shop-filter" data-filter="tasses" data-type="cat">Tasses</button>
+        <button class="shop-filter" data-filter="assiettes" data-type="cat">Assiettes</button>
+        <button class="shop-filter" data-filter="bols" data-type="cat">Bols</button>
+        <button class="shop-filter" data-filter="autre" data-type="cat">Autre</button>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center;">
+        <span style="font-size:.68rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--text-lt); margin-right:4px;">Collection</span>
+        <button class="shop-filter" data-filter="tout-coll" data-type="coll">Toutes</button>
+        <button class="shop-filter" data-filter="blizzard" data-type="coll">Blizzard</button>
+        <button class="shop-filter" data-filter="montagnarde" data-type="coll">Montagnarde</button>
+        <button class="shop-filter" data-filter="forestiere" data-type="coll">Forestière</button>
+      </div>
     </div>
 
     <!-- Grille produits -->
     <div class="prod-grid" id="prod-grid">
 
       <!-- TASSES -->
-      <div class="prod-card fi" data-cat="tasses">
+      <div class="prod-card fi" data-cat="tasses" data-collection="blizzard">
         <div class="prod-img">
           <img src="images/Blizzard-tasse-cafe1a.jpg" alt="Blizzard · Tasse 12 oz">
         </div>
@@ -733,7 +743,7 @@
         </div>
       </div>
 
-      <div class="prod-card fi" data-cat="tasses">
+      <div class="prod-card fi" data-cat="tasses" data-collection="forestiere">
         <div class="prod-img">
           <img src="images/Forestiere-tasse1a.jpg" alt="Forestière · Tasse 10 oz">
         </div>
@@ -757,7 +767,7 @@
       </div>
 
       <!-- ASSIETTES -->
-      <div class="prod-card fi" data-cat="assiettes">
+      <div class="prod-card fi" data-cat="assiettes" data-collection="blizzard">
         <div class="prod-img">
           <img src="images/blizzard_assiette-creuse3.jpg" alt="Blizzard · Assiette creuse">
         </div>
@@ -768,7 +778,7 @@
         </div>
       </div>
 
-      <div class="prod-card fi" data-cat="assiettes">
+      <div class="prod-card fi" data-cat="assiettes" data-collection="forestiere">
         <div class="prod-img">
           <img src="images/Forestiere_Assiettes-2a.jpg" alt="Forestière · Assiette">
         </div>
@@ -780,7 +790,7 @@
       </div>
 
       <!-- BOLS -->
-      <div class="prod-card fi" data-cat="bols">
+      <div class="prod-card fi" data-cat="bols" data-collection="blizzard">
         <div class="prod-img">
           <img src="images/Blizzard-bols-2b.jpg" alt="Blizzard · Bol">
         </div>
@@ -791,7 +801,7 @@
         </div>
       </div>
 
-      <div class="prod-card fi" data-cat="bols">
+      <div class="prod-card fi" data-cat="bols" data-collection="montagnarde">
         <div class="prod-img">
           <img src="images/Montagnarde_bol-2.jpg" alt="Montagnarde · Bol">
         </div>
@@ -803,7 +813,7 @@
       </div>
 
       <!-- AUTRE -->
-      <div class="prod-card fi" data-cat="autre">
+      <div class="prod-card fi" data-cat="autre" data-collection="montagnarde">
         <div class="prod-img">
           <img src="images/Montagnarde_Poubelle-de-table1.jpg" alt="Montagnarde · Poubelle de table">
         </div>
@@ -913,14 +923,25 @@
 
   document.querySelector('.hero .fi')?.classList.add('vis');
 
+  let activeCat  = 'tout';
+  let activeColl = 'tout-coll';
+
+  function applyFilters() {
+    document.querySelectorAll('#prod-grid .prod-card').forEach(card => {
+      const catMatch  = activeCat  === 'tout'      || card.dataset.cat        === activeCat;
+      const collMatch = activeColl === 'tout-coll' || card.dataset.collection === activeColl;
+      card.classList.toggle('is-hidden', !catMatch || !collMatch);
+    });
+  }
+
   document.querySelectorAll('.shop-filter').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.shop-filter').forEach(b => b.classList.remove('active'));
+      const type = btn.dataset.type;
+      document.querySelectorAll(`.shop-filter[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const f = btn.dataset.filter;
-      document.querySelectorAll('#prod-grid .prod-card').forEach(card => {
-        card.classList.toggle('is-hidden', f !== 'tout' && card.dataset.cat !== f);
-      });
+      if (type === 'cat')  activeCat  = btn.dataset.filter;
+      if (type === 'coll') activeColl = btn.dataset.filter;
+      applyFilters();
     });
   });
 </script>
