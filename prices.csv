@@ -1,0 +1,9 @@
+Price ID,Product ID,Product Name,Product Statement Descriptor,Product Tax Code,Description,Created (UTC),Amount,Currency,Interval,Interval Count,Usage Type,Aggregate Usage,Billing Scheme,Trial Period Days,Tax Behavior
+price_1T7OIZPy5tPWAdRZJ0FuD7da,prod_U5ZRGDVG6sBcTJ,Grande tasse 16 oz — Fin de lot,,,,2026-03-04 22:53,25.00,cad,,,,,per_unit,,unspecified
+price_1T7OIYPy5tPWAdRZX2o6gYYL,prod_U5ZReln7iT84Sp,Assiette — Collection Forestière,,,,2026-03-04 22:53,42.50,cad,,,,,per_unit,,unspecified
+price_1T7OIWPy5tPWAdRZmxGONqk5,prod_U5ZRGkrWGDBd51,Tasse 10 oz — Collection Forestière,,,,2026-03-04 22:53,29.50,cad,,,,,per_unit,,unspecified
+price_1T7OIVPy5tPWAdRZaXGLvfcw,prod_U5ZRhCmAEo48J7,Bol — Collection Montagnarde,,,,2026-03-04 22:53,38.50,cad,,,,,per_unit,,unspecified
+price_1T7OIRPy5tPWAdRZNTDZ3JBx,prod_U5ZRBNvxRIIsx3,Assiette creuse — Collection Blizzard,,,,2026-03-04 22:53,42.50,cad,,,,,per_unit,,unspecified
+price_1T7OIRPy5tPWAdRZhdFcqAWf,prod_U5ZRNvCVX329uu,Bol — Collection Blizzard,,,,2026-03-04 22:53,38.50,cad,,,,,per_unit,,unspecified
+price_1T7OIQPy5tPWAdRZfcn2sCko,prod_U5ZRvLQhYT8azw,Poubelle de table — Collection Montagnarde,,,,2026-03-04 22:53,68.50,cad,,,,,per_unit,,unspecified
+price_1T7OIQPy5tPWAdRZTGPAJkOQ,prod_U5ZRW0oOxZiRN4,Tasse 12 oz — Collection Blizzard,,,,2026-03-04 22:53,33.50,cad,,,,,per_unit,,unspecified
