@@ -238,20 +238,20 @@
 
     .coll-head {
       text-align: center; max-width: 520px;
-      margin: 0 auto 64px;
+      margin: 0 auto 40px;
     }
     .coll-head .title { margin: 0 0 14px; }
     .coll-head p { font-size: .93rem; color: var(--text-lt); line-height: 1.8; }
 
     .coll-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 28px;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
     }
 
     .coll-card { display: flex; flex-direction: column; }
 
     .coll-img {
-      overflow: hidden; aspect-ratio: 1848/2661;
-      margin-bottom: 22px; border-radius: 1px;
+      overflow: hidden; aspect-ratio: 1/1;
+      margin-bottom: 16px; border-radius: 1px;
     }
     .coll-img img {
       width: 100%; height: 100%; object-fit: cover;
@@ -264,6 +264,7 @@
     .ph-a { background: linear-gradient(150deg, #eef3f7 0%, #9ab8c8 50%, #4f7088 100%); }
     .ph-b { background: linear-gradient(150deg, #eaf2ec 0%, #7aaa88 50%, #3a6848 100%); }
     .ph-c { background: linear-gradient(150deg, #f0ece8 0%, #b09888 50%, #7a6050 100%); }
+    .ph-d { background: linear-gradient(150deg, #f5f0f0 0%, #c8a8a8 50%, #8a5858 100%); }
 
     .coll-card:hover .coll-ph,
     .coll-card:hover .coll-img img { transform: scale(1.04); }
@@ -273,8 +274,8 @@
       text-transform: uppercase; color: var(--slate); margin-bottom: 7px;
     }
     .coll-name {
-      font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
-      color: var(--dark); margin-bottom: 10px;
+      font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
+      color: var(--dark); margin-bottom: 8px;
     }
     .coll-desc {
       font-size: .88rem; font-weight: 300; color: var(--text-lt);
@@ -440,8 +441,8 @@
 
       section { padding: 72px 20px; }
 
-      .coll-grid { grid-template-columns: 1fr; gap: 44px; }
-      .coll-img { aspect-ratio: 4/3; }
+      .coll-grid { grid-template-columns: repeat(2,1fr); gap: 20px; }
+      .coll-img { aspect-ratio: 1/1; }
 
       .prod-grid { grid-template-columns: repeat(2,1fr); gap: 24px 16px; }
 
@@ -642,18 +643,16 @@
 
       <div class="coll-card fi">
         <div class="coll-img">
-          <img src="images/Blizzard-tasse-2.jpg" alt="Collection Blizzard">
+          <img src="images/Blizzard-bols-3.jpg" alt="Collection Blizzard">
         </div>
         <span class="coll-tag">01 — Blizzard</span>
-        <h3 class="coll-name">Blizzard</h3>
       </div>
 
       <div class="coll-card fi">
         <div class="coll-img">
-          <img src="images/Montagnarde_Poubelle-de-table1.jpg" alt="Collection Montagnarde">
+          <img src="images/Montagnarde_bol-3.jpg" alt="Collection Montagnarde">
         </div>
         <span class="coll-tag">02 — Montagnarde</span>
-        <h3 class="coll-name">Montagnarde</h3>
       </div>
 
       <div class="coll-card fi">
@@ -661,7 +660,13 @@
           <img src="images/Forestiere-tasse1a.jpg" alt="Collection Forestière" style="object-position: center bottom;">
         </div>
         <span class="coll-tag">03 — Forestière</span>
-        <h3 class="coll-name">Forestière</h3>
+      </div>
+
+      <div class="coll-card fi">
+        <div class="coll-img">
+          <img src="images/Unique3.jpg" alt="Collection Les Uniques">
+        </div>
+        <span class="coll-tag">04 — Les Uniques</span>
       </div>
 
     </div>
