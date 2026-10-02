@@ -34,13 +34,17 @@ exports.handler = async (event) => {
       quantity: 1,
     });
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-    });
+const session = await stripe.checkout.sessions.create({
+  payment_method_types: ['card'],
+  line_items: lineItems,
+  mode: 'payment',
+  success_url: successUrl,
+  cancel_url: cancelUrl,
+  billing_address_collection: 'required',
+  shipping_address_collection: {
+    allowed_countries: ['CA'],
+  },
+});
 
     return {
       statusCode: 200,
