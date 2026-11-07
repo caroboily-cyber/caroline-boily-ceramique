@@ -969,12 +969,15 @@
         }
 
         if (qty === 0) {
-          btn.textContent = 'Épuisé';
-          btn.disabled = true;
-          btn.style.opacity = '.45';
-          btn.style.cursor  = 'not-allowed';
-          btn.onclick = null;
-          stockEl.textContent = 'Épuisé';
+          btn.textContent = 'Contactez-moi';
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.style.cursor  = 'pointer';
+          btn.style.background = 'transparent';
+          btn.style.color = 'var(--slate)';
+          btn.style.border = '1px solid var(--slate)';
+          btn.onclick = () => window.location.href = 'mailto:poterie@cboily.ca?subject=Demande%20de%20pi%C3%A8ce%20sur%20commande';
+          stockEl.textContent = 'Épuisé · sur commande';
           stockEl.style.color = 'var(--text-lt)';
         } else if (qty === 1) {
           const isFinDeLot = card.querySelector('.badge-lot') !== null;
