@@ -10,6 +10,7 @@ const PAYMENT_LINKS = {
   'Blizzard · Bol':                  'plink_1T7OYfPy5tPWAdRZys58krtM',
   'Montagnarde · Bol':               'plink_1T7OZ6Py5tPWAdRZJnCQmK6g',
   'Montagnarde · Poubelle de table': 'plink_1T7OViPy5tPWAdRZVGC4fAMT',
+  'Montagnarde · Gobelet 8 oz':      'plink_1UcyVKPy5tPWAdRZoS0Q9qKx',
 };
 
 exports.handler = async () => {

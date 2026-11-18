@@ -11,6 +11,11 @@ const PRICE_IDS = {
   'Montagnarde · Poubelle de table': 'price_1T7OIQPy5tPWAdRZfcn2sCko',
 };
 
+// Produits sans price_ Stripe : prix en cents envoyé directement
+const INLINE_PRICES = {
+  'Montagnarde · Gobelet 8 oz': 2450,
+};
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -19,10 +24,19 @@ exports.handler = async (event) => {
   try {
     const { items, successUrl, cancelUrl } = JSON.parse(event.body);
 
-    const lineItems = items.map(item => ({
-      price: PRICE_IDS[item.name],
-      quantity: item.quantity,
-    }));
+    const lineItems = items.map(item => {
+      if (INLINE_PRICES[item.name]) {
+        return {
+          price_data: {
+            currency: 'cad',
+            product_data: { name: item.name },
+            unit_amount: INLINE_PRICES[item.name],
+          },
+          quantity: item.quantity,
+        };
+      }
+      return { price: PRICE_IDS[item.name], quantity: item.quantity };
+    });
 
     // Livraison fixe 15$
     lineItems.push({
